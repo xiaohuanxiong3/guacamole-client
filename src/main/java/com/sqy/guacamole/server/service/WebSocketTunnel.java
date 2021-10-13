@@ -7,6 +7,7 @@ import org.apache.guacamole.net.GuacamoleTunnel;
 import org.apache.guacamole.net.InetGuacamoleSocket;
 import org.apache.guacamole.net.SimpleGuacamoleTunnel;
 import org.apache.guacamole.protocol.ConfiguredGuacamoleSocket;
+import org.apache.guacamole.protocol.GuacamoleClientInformation;
 import org.apache.guacamole.protocol.GuacamoleConfiguration;
 import org.apache.guacamole.websocket.GuacamoleWebSocketTunnelEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +66,14 @@ public class WebSocketTunnel extends GuacamoleWebSocketTunnelEndpoint {
 //        configuration.setParameter("height","865");
 //        configuration.setParameter("width","1707");
 
+        GuacamoleClientInformation client= new GuacamoleClientInformation();
+        client.setOptimalScreenHeight(865);
+        client.setOptimalScreenWidth(1707);
+
 
         GuacamoleSocket socket = new ConfiguredGuacamoleSocket(
                 new InetGuacamoleSocket(guacamoleServer.getHost(), Integer.valueOf(guacamoleServer.getPort())),
-                configuration
+                configuration,client
         );
 
         GuacamoleTunnel tunnel = new SimpleGuacamoleTunnel(socket);
