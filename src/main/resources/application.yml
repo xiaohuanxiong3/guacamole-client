@@ -3,3 +3,6 @@ spring:
     active: local
   application:
     name: springboot-guacamole
+guacd:
+  host: 192.168.1.12
+  port: 4822
