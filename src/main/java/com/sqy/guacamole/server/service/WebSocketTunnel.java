@@ -47,6 +47,9 @@ public class WebSocketTunnel extends GuacamoleWebSocketTunnelEndpoint {
 
         // servertype 目前只有uft,lr,fortify三种类型
         String serverType = session.getPathParameters().get("type");
+        // 从获取浏览器宽高
+        Integer height = Integer.valueOf(session.getRequestParameterMap().get("height").get(0));
+        Integer width  = Integer.valueOf(session.getRequestParameterMap().get("width").get(0));
         // serverHost及其他信息之后从数据库或其他地方获取（如果server和用户绑定可能需要加上用户信息）
         String serverHost = null;
         if( serverType.equalsIgnoreCase("uft") )
@@ -63,12 +66,11 @@ public class WebSocketTunnel extends GuacamoleWebSocketTunnelEndpoint {
         configuration.setParameter("password", "Quantum2018");
         // 后面开放修改用户名密码服务后此处代码需修改
         configuration.setParameter("ignore-cert", "true");
-//        configuration.setParameter("height","865");
-//        configuration.setParameter("width","1707");
+        configuration.setParameter("resize-method","display-update");
 
         GuacamoleClientInformation client= new GuacamoleClientInformation();
-        client.setOptimalScreenHeight(865);
-        client.setOptimalScreenWidth(1707);
+        client.setOptimalScreenHeight(height);
+        client.setOptimalScreenWidth(width);
 
 
         GuacamoleSocket socket = new ConfiguredGuacamoleSocket(
